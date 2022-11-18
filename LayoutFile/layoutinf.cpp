@@ -18,6 +18,8 @@ LayoutInf::~LayoutInf()
 
 void LayoutInf::getLayoutInf(StLayoutInf layoutInf)
 {
+
+    ui->nameEdit->setText(layoutInf.layout_name);
     ui->wEdit->setText(QString::number(layoutInf.width));
     ui->hEdit->setText(QString::number(layoutInf.height));
     ui->readEdit->setText(QString::number(layoutInf.read_only));

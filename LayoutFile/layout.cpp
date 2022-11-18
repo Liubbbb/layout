@@ -14,9 +14,7 @@ layout::layout()
     QHBoxLayout* m_layout = new QHBoxLayout(this);//设置主窗体布局
     m_layout->addWidget(layoutScrollArea);
     layoutScrollArea->setWidgetResizable(true);
-
-
-
+    connect(this,SIGNAL(updateSelectBtn(QAbstractButton *)),this,SLOT(buttonGroupClicked(QAbstractButton *)));
 }
 
 void layout::createScrollArea()
@@ -36,8 +34,8 @@ void layout::updateLayout()
 {
     row=0;
     layoutBtnGroup = new QButtonGroup();
-    layoutBtnGroup->setExclusive(false);
-    connect(layoutBtnGroup, SIGNAL(buttonClicked(int)),this, SLOT(buttonGroupClicked(int)));
+    layoutBtnGroup->setExclusive(false);  //按钮组中的按钮时非互斥状态，可以同时选中
+    connect(layoutBtnGroup, SIGNAL(buttonClicked(QAbstractButton *)),this, SLOT(buttonGroupClicked(QAbstractButton *)));
     QJsonDocument doc;
     //检索布局名称，并为每个布局检索窗口信息
     if(mul.retriveLayoutAll(doc) == SDVoEAPISUCESS)
@@ -85,21 +83,22 @@ void layout::showLayout(StLayoutInf layoutInf)
 {
         layoutButton = new QToolButton;
         layoutButton->setContextMenuPolicy(Qt::CustomContextMenu);
-//        connect(layoutButton,SIGNAL(pressed()),this,SLOT(clickRightButton()));
         connect(layoutButton,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(createLayoutMenu()));
+
         layoutBtnGroup->addButton(layoutButton,row);
         layoutButton->setObjectName(layoutInf.layout_name);  //将按钮别名命名为布局名称
         // 对应窗口
         QPixmap pixmap(layoutInf.width, layoutInf.height); //画板
         pixmap.fill(Qt::white); //画笔
         QPainter painter(&pixmap);
-        painter.setPen(QPen(Qt::black,20));
+        painter.setPen(QPen(Qt::black,15));
         painter.drawRect(0,0,layoutInf.width, layoutInf.height);
+        qDebug()<<"布局的宽高："<<layoutInf.width<<"+"<<layoutInf.height;
         if(layoutInf.wdObj.size()>0)
         {
             for(int i= 0;i<layoutInf.wdObj.size();i++)
             {
-                painter.drawRect(0,0,layoutInf.wdObj.at(i).width,layoutInf.wdObj.at(i).height);
+                painter.drawRect(layoutInf.wdObj.at(i).horizontal_position,layoutInf.wdObj.at(i).vertical_position,layoutInf.wdObj.at(i).width,layoutInf.wdObj.at(i).height);
             }
         }
         pixmap.scaled(300,300);
@@ -116,7 +115,11 @@ void layout::showLayout(StLayoutInf layoutInf)
 
 void layout::createLayoutMenu()
 {
-    layoutMenu = new QMenu(layoutButton);
+    QToolButton* btn= qobject_cast<QToolButton*>(sender());
+    btn->setChecked(true);
+    emit updateSelectBtn(btn);
+//    qDebug()<<"当前选中的按钮为："<<selectButton->objectName();
+    layoutMenu = new QMenu(btn);
     QAction *editAction = new QAction(tr("编辑布局"), this);
     connect(editAction,SIGNAL(triggered(bool)),this,SLOT(editLayout()));
     QAction *delAction = new QAction(tr("删除布局"), this);
@@ -199,6 +202,7 @@ void layout::updateAfterClose(bool update)
 {
     if(update)
     {
+        qDebug()<<"关闭更新布局";
         deleteHboxWidget();
         updateLayout();
     }else return;
@@ -234,14 +238,14 @@ void layout::deleteHboxWidget()
      boxLayout->update();
 }
 
-void layout::buttonGroupClicked(int id)
+void layout::buttonGroupClicked(QAbstractButton *btn)
 {
     // 判断是否为当前选中的按钮，若不是当前选中的按钮则令其不可选
     QList<QAbstractButton *> buttons = layoutBtnGroup->buttons();
     foreach (QAbstractButton *button, buttons) {
-        if (layoutBtnGroup->button(id) != button)
+        if (button != btn)
             button->setChecked(false);
     }
-    selectButton = layoutBtnGroup->button(id); //存储当前选中按钮
-    qDebug()<<"选中的按钮："<<selectButton->objectName();
+    selectButton = btn; //存储当前选中按钮
+
 }

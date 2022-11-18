@@ -90,6 +90,12 @@ void MainEdit::closeEvent(QCloseEvent *event)
     event->accept();
 }
 
+void MainEdit::keyPressEvent(QKeyEvent *e)
+{
+    if(e->key() == Qt::Key_Escape) close();
+    else  e->accept();
+}
+
 void MainEdit::deleteWindow()
 {
     closeEdit = true;
@@ -104,4 +110,17 @@ void MainEdit::maximiScreen()
 void MainEdit::fullScreen()
 {
     this->showFullScreen();  //隐藏状态栏和菜单栏
+}
+
+void MainEdit::on_saveBtn_clicked()
+{
+    SDVoEAPIRESULT result = scene->saveLayout();
+    QMessageBox *message = new QMessageBox();
+    if(result == 0) {
+        QString str;
+        str = "success";
+        message->information(this, "result",str);
+        return;
+    }
+    message->information(this, "result",QString::number(result));
 }

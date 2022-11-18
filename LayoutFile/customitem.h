@@ -5,6 +5,7 @@
 #include <QDebug>
 #include "publicdefine.h"
 #include <QGraphicsSceneMouseEvent>
+#include <QLabel>
 
 class CustomItem : public QGraphicsItem
 {

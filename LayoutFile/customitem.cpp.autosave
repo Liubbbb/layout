@@ -103,11 +103,10 @@ void CustomItem::settingSizeTo(DragingRectItem::Direction dir, const QPointF &po
     default:
         break;
     }
-
     prepareGeometryChange();
     iRect =delta; //boundingRect()和paint()中的m_rect也会变化
-    setDraggingEdge();
     update();
+    setDraggingEdge();
 }
 
 DragingRectItem::Direction CustomItem::hitTest(const QPointF &point) const

@@ -54,9 +54,10 @@ protected:
 
 signals:
     void sendLayoutInfo(StLayoutInf);
+    void updateSelectBtn(QAbstractButton *);
 
 private slots:
-    void buttonGroupClicked(int id);
+    void buttonGroupClicked(QAbstractButton *);
     // 右键菜单
     void createLayoutMenu();
 //    //添加新布局

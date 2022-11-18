@@ -91,6 +91,19 @@ void CustomScene::deleteSameIndexItem(int index)
     }
 }
 
+SDVoEAPIRESULT CustomScene::saveLayout()
+{
+    SDVoEAPIRESULT result = SDVoEAPISUCESS;
+    foreach(CustomItem *item,itemsList)
+    {
+
+        qDebug()<<"x="<<item->itemInf.horizontal_position;
+        result = mul.createWindow(item->itemInf);
+        if(result != SDVoEAPISUCESS) return result;
+    }
+    return result;
+}
+
 Qt::CursorShape CustomScene::currentCursor()
 {
     QList<QGraphicsView*> views  = this->views();
@@ -116,12 +129,19 @@ void CustomScene::mousePressEvent(QGraphicsSceneMouseEvent *event)
         QGraphicsScene::mousePressEvent(event);
     if (findSelectItem())
     {
-//            qDebug()<<"item的pos："<<select->scenePos(); //显示此时的位置
        s_ui->indexEdit->setText(QString::number(select->itemInf.index));
-       s_ui->horizonPosEdit->setText(QString::number(qRound(select->scenePos().x()*wStretch)));
+       horizonValue = qRound(select->scenePos().x()*wStretch);
+       if(horizonValue % 2 == 0)
+           s_ui->horizonPosEdit->setText(QString::number(horizonValue));
+       else
+           s_ui->horizonPosEdit->setText(QString::number(horizonValue-1));
        s_ui->verticalPosEdit->setText(QString::number(qRound(select->scenePos().y()*hStretch)));
        QRect rect =select->iRect.toRect();
-       s_ui->widthEdit->setText(QString::number(qRound(rect.width()*wStretch)));
+       widthValue = qRound(rect.width()*wStretch);
+       if(widthValue>=4 && widthValue % 2 ==0)
+           s_ui->widthEdit->setText(QString::number(widthValue));
+       else
+           s_ui->widthEdit->setText(QString::number(widthValue-1));
        s_ui->heightEdit->setText(QString::number(qRound(rect.height()*hStretch)));
 
        if (beforItem == nullptr) beforItem = select;
@@ -148,11 +168,19 @@ void CustomScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
        if (nDragHandle != DragingRectItem::None && selectMode == size )
        {
            select->settingSizeTo(nDragHandle,event->scenePos());
+           qDebug()<<"移动时:"<<select->itemInf.horizontal_position;
            //同步更新右侧窗口信息
            QRect rect = select->iRect.toRect();
-           s_ui->horizonPosEdit->setText(QString::number(qRound(select->scenePos().x()*wStretch)));
+           horizonValue = qRound(select->scenePos().x()*wStretch);
+           if(horizonValue % 2 == 0)
+               s_ui->horizonPosEdit->setText(QString::number(horizonValue));
+           else
+               s_ui->horizonPosEdit->setText(QString::number(horizonValue-1));
            s_ui->verticalPosEdit->setText(QString::number(qRound(select->scenePos().y()*hStretch)));
-           s_ui->widthEdit->setText(QString::number(qRound(rect.width()*wStretch)));
+           widthValue = qRound(rect.width()*wStretch);
+           if(widthValue >=4 && widthValue %2 == 0)
+               s_ui->widthEdit->setText(QString::number(widthValue));
+           else  s_ui->widthEdit->setText(QString::number(widthValue-1));
            s_ui->heightEdit->setText(QString::number(qRound(rect.height()*hStretch)));
        }
        //移动时，按压前，nDragHandle和selectMode均为null
@@ -168,7 +196,10 @@ void CustomScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
        else if(nDragHandle == DragingRectItem::None && selectMode == move )
        {
            QGraphicsScene::mouseMoveEvent(event);
-           s_ui->horizonPosEdit->setText(QString::number(qRound(select->scenePos().x()*wStretch)));
+           horizonValue = qRound(select->scenePos().x()*wStretch);
+           if(horizonValue %  2 == 0)
+               s_ui->horizonPosEdit->setText(QString::number(horizonValue));
+           else s_ui->horizonPosEdit->setText(QString::number(horizonValue-1));
            s_ui->verticalPosEdit->setText(QString::number(qRound(select->scenePos().y()*hStretch)));
        }
 
@@ -181,25 +212,11 @@ void CustomScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     if (event->button() != Qt::LeftButton) return;
     if(findSelectItem())
     {
-        //此处添加左侧更新item.scenPos
-        QRect rect = select->iRect.toRect();
         qDebug()<<"item现在的位置："<<select->scenePos();
-        s_ui->horizonPosEdit->setText(QString::number(qRound(select->scenePos().x()*wStretch)));
-        s_ui->verticalPosEdit->setText(QString::number(qRound(select->scenePos().y()*hStretch)));
-        s_ui->widthEdit->setText(QString::number(qRound(rect.width()*wStretch)));
-        s_ui->heightEdit->setText(QString::number(qRound(rect.height()*hStretch)));
-
-        //因为窗口位置信息发生改变，释放鼠标后要发送创建窗口命令
-        select->itemInf.horizontal_position = qRound(select->scenePos().x()*wStretch); //更新item信息
-        select->itemInf.vertical_position = qRound(select->scenePos().y()*hStretch);
-        select->itemInf.width = qRound(rect.width()*wStretch);
-        select->itemInf.height = qRound(rect.height()*hStretch);
-        qDebug()<<"x:"<<select->itemInf.horizontal_position;
-        qDebug()<<"y:"<<select->itemInf.vertical_position;
-        qDebug()<<"w:"<<select->itemInf.width;
-        qDebug()<<"h:"<<select->itemInf.height;
-        qDebug()<<"name:"<<select->itemInf.layoutName;
-        mul.createWindow(select->itemInf); // 发送创建窗口命令 = 更新窗口
+        select->itemInf.horizontal_position = s_ui->horizonPosEdit->text().toInt(); //更新item信息
+        select->itemInf.vertical_position = s_ui->verticalPosEdit->text().toInt();
+        select->itemInf.width = s_ui->widthEdit->text().toInt();
+        select->itemInf.height = s_ui->heightEdit->text().toInt();
     }
     setCursor(Qt::ArrowCursor);
     selectMode = none;

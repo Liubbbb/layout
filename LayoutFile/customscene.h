@@ -8,6 +8,7 @@
 
 #include <QGraphicsView>
 #include <QLineEdit>
+#include <QMessageBox>
 
 enum SelectMode
 {
@@ -28,6 +29,7 @@ public:
     Qt::CursorShape currentCursor();
     bool findIndex(StLayoutInf sLayoutInf,int index);
     void deleteSameIndexItem(int index);
+    SDVoEAPIRESULT saveLayout();
     
 private:
     Ui::MainEdit *s_ui;
@@ -43,6 +45,8 @@ private:
     SelectMode selectMode = none;
     qreal wStretch = 0;
     qreal hStretch = 0;
+    int horizonValue;
+    int widthValue;
 
 
 protected:

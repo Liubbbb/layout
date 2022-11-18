@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="gridLayout">
+   <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
@@ -53,196 +53,186 @@
       <property name="title">
        <string>window's information</string>
       </property>
-      <widget class="QGroupBox" name="groupBox_3">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>40</y>
-         <width>181</width>
-         <height>91</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>point</string>
-       </property>
-       <widget class="QLabel" name="label_2">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>30</y>
-          <width>31</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>x:</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_3">
-        <property name="geometry">
-         <rect>
-          <x>50</x>
-          <y>60</y>
-          <width>31</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>y:</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="horizonPosEdit">
-        <property name="geometry">
-         <rect>
-          <x>90</x>
-          <y>30</y>
-          <width>71</width>
-          <height>21</height>
-         </rect>
-        </property>
-        <property name="clearButtonEnabled">
-         <bool>false</bool>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="verticalPosEdit">
-        <property name="geometry">
-         <rect>
-          <x>90</x>
-          <y>60</y>
-          <width>71</width>
-          <height>21</height>
-         </rect>
-        </property>
-       </widget>
-      </widget>
-      <widget class="QGroupBox" name="groupBox_4">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>160</y>
-         <width>181</width>
-         <height>91</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>size</string>
-       </property>
-       <widget class="QLabel" name="label_4">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>30</y>
-          <width>72</width>
-          <height>15</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>width:</string>
-        </property>
-       </widget>
-       <widget class="QLabel" name="label_5">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>60</y>
-          <width>72</width>
-          <height>15</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>height:</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="widthEdit">
-        <property name="geometry">
-         <rect>
-          <x>90</x>
-          <y>30</y>
-          <width>71</width>
-          <height>21</height>
-         </rect>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="heightEdit">
-        <property name="geometry">
-         <rect>
-          <x>90</x>
-          <y>60</y>
-          <width>71</width>
-          <height>21</height>
-         </rect>
-        </property>
-       </widget>
-      </widget>
-      <widget class="QPushButton" name="addWindowBtn">
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>400</y>
-         <width>91</width>
-         <height>28</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>add </string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="delWindowBtn">
-       <property name="geometry">
-        <rect>
-         <x>120</x>
-         <y>400</y>
-         <width>93</width>
-         <height>28</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>delete</string>
-       </property>
-      </widget>
-      <widget class="QGroupBox" name="groupBox_2">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>280</y>
-         <width>181</width>
-         <height>71</height>
-        </rect>
-       </property>
-       <property name="title">
-        <string>index</string>
-       </property>
-       <widget class="QLabel" name="label">
-        <property name="geometry">
-         <rect>
-          <x>20</x>
-          <y>30</y>
-          <width>51</width>
-          <height>16</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>index:</string>
-        </property>
-       </widget>
-       <widget class="QLineEdit" name="indexEdit">
-        <property name="geometry">
-         <rect>
-          <x>90</x>
-          <y>30</y>
-          <width>71</width>
-          <height>21</height>
-         </rect>
-        </property>
-       </widget>
-      </widget>
-     </widget>
-    </item>
-    <item row="2" column="0">
-     <widget class="QPushButton" name="pushButton">
-      <property name="text">
-       <string>save</string>
-      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="2" column="0" colspan="2">
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="title">
+          <string>index</string>
+         </property>
+         <widget class="QLabel" name="label">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>30</y>
+            <width>51</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>index:</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="indexEdit">
+          <property name="geometry">
+           <rect>
+            <x>90</x>
+            <y>30</y>
+            <width>71</width>
+            <height>21</height>
+           </rect>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item row="0" column="0" colspan="2">
+        <widget class="QGroupBox" name="groupBox_3">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="title">
+          <string>point</string>
+         </property>
+         <widget class="QLabel" name="label_2">
+          <property name="geometry">
+           <rect>
+            <x>50</x>
+            <y>30</y>
+            <width>31</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>x:</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_3">
+          <property name="geometry">
+           <rect>
+            <x>50</x>
+            <y>60</y>
+            <width>31</width>
+            <height>16</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>y:</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="horizonPosEdit">
+          <property name="geometry">
+           <rect>
+            <x>90</x>
+            <y>30</y>
+            <width>71</width>
+            <height>21</height>
+           </rect>
+          </property>
+          <property name="clearButtonEnabled">
+           <bool>false</bool>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="verticalPosEdit">
+          <property name="geometry">
+           <rect>
+            <x>90</x>
+            <y>60</y>
+            <width>71</width>
+            <height>21</height>
+           </rect>
+          </property>
+         </widget>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QPushButton" name="addWindowBtn">
+         <property name="text">
+          <string>add </string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QPushButton" name="delWindowBtn">
+         <property name="text">
+          <string>delete</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0" colspan="2">
+        <widget class="QPushButton" name="saveBtn">
+         <property name="text">
+          <string>save</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="QGroupBox" name="groupBox_4">
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="title">
+          <string>size</string>
+         </property>
+         <widget class="QLabel" name="label_4">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>30</y>
+            <width>72</width>
+            <height>15</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>width:</string>
+          </property>
+         </widget>
+         <widget class="QLabel" name="label_5">
+          <property name="geometry">
+           <rect>
+            <x>20</x>
+            <y>60</y>
+            <width>72</width>
+            <height>15</height>
+           </rect>
+          </property>
+          <property name="text">
+           <string>height:</string>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="widthEdit">
+          <property name="geometry">
+           <rect>
+            <x>90</x>
+            <y>30</y>
+            <width>71</width>
+            <height>21</height>
+           </rect>
+          </property>
+         </widget>
+         <widget class="QLineEdit" name="heightEdit">
+          <property name="geometry">
+           <rect>
+            <x>90</x>
+            <y>60</y>
+            <width>71</width>
+            <height>21</height>
+           </rect>
+          </property>
+         </widget>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
    </layout>

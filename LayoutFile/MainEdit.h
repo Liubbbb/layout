@@ -20,6 +20,7 @@ public:
     void drawWindows();
 
     void closeEvent(QCloseEvent *event);
+    void keyPressEvent(QKeyEvent *e);
     bool closeEdit = false;
 
 private:
@@ -34,14 +35,12 @@ private:
 
 signals:
     void closeWindowEdit(bool);
-
     
 private slots:
     void addWindow();
     void deleteWindow();
     void maximiScreen();
     void fullScreen();
-    
-
+    void on_saveBtn_clicked();
 };
 #endif // MAINWINDOW_H
